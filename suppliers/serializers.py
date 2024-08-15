@@ -7,33 +7,67 @@ from suppliers.models import Supplier, Contact
 
 
 class SupplierSerializer(ModelSerializer):
+    """
+    Сериалайзер для поставщика для всех действий, кроме создания нового
+    """
     products = SerializerMethodField()
     debts = serializers.DecimalField(read_only=True, max_digits=20, decimal_places=2)
     parent_supplier = SerializerMethodField()
     email = SerializerMethodField()
     country = SerializerMethodField()
     city = SerializerMethodField()
+    street = SerializerMethodField()
+    house = SerializerMethodField()
 
     @staticmethod
     def get_products(supplier):
+        """
+        Получение списка продуктов поставщика
+        """
         return [product.name for product in Product.objects.filter(supplier=supplier)]
 
     @staticmethod
     def get_parent_supplier(supplier):
+        """
+        Получение названия родительского поставщика
+        """
         if supplier.parent_supplier:
             return supplier.parent_supplier.name
 
     @staticmethod
     def get_email(supplier):
+        """
+        Получение email из привязанных контактов
+        """
         return Contact.objects.get(supplier=supplier).email
 
     @staticmethod
     def get_country(supplier):
+        """
+        Получение страны из привязанных контактов
+        """
         return Contact.objects.get(supplier=supplier).country
 
     @staticmethod
     def get_city(supplier):
+        """
+        Получение города из привязанных контактов
+        """
         return Contact.objects.get(supplier=supplier).city
+
+    @staticmethod
+    def get_street(supplier):
+        """
+        Получение улицы из привязанных контактов
+        """
+        return Contact.objects.get(supplier=supplier).street
+
+    @staticmethod
+    def get_house(supplier):
+        """
+        Получение номера дома из привязанных контактов
+        """
+        return Contact.objects.get(supplier=supplier).house
 
     class Meta:
         model = Supplier
@@ -41,12 +75,18 @@ class SupplierSerializer(ModelSerializer):
 
 
 class ContactSerializer(ModelSerializer):
+    """
+    Сериалайзер для контактов
+    """
     class Meta:
         model = Contact
         fields = "__all__"
 
 
 class SupplierCreateSerializer(ModelSerializer):
+    """
+    Сериалайзер для поставщика для действия "create"
+    """
     supplier = serializers.SlugRelatedField(
         required=False, queryset=Supplier.objects.all(), slug_field="name"
     )

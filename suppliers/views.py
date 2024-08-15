@@ -6,12 +6,17 @@ from users.permissions import IsActiveUser
 
 
 class SupplierViewSet(ModelViewSet):
+    """
+    Вьюсет для CRUD поставщика
+    """
     queryset = Supplier.objects.all()
     filterset_fields = ("contact__country",)
     permission_classes = (IsActiveUser,)
 
     def perform_create(self, serializer):
-        """при создании поставщика присваивать уровень в зависимости от родителя-поставщика"""
+        """
+        при создании поставщика присваивать уровень в зависимости от родителя-поставщика
+        """
         supplier = serializer.save()
         if supplier.type == "завод":
             supplier.level = 0
@@ -23,6 +28,9 @@ class SupplierViewSet(ModelViewSet):
         supplier.save()
 
     def get_serializer_class(self):
+        """
+        Выбор сериалайзера в зависимости от действия
+        """
         if self.action == "create":
             return SupplierCreateSerializer
         else:
@@ -30,5 +38,8 @@ class SupplierViewSet(ModelViewSet):
 
 
 class ContactViewSet(ModelViewSet):
+    """
+    Вьюсет для контактов
+    """
     queryset = Contact.objects.all()
     permission_classes = (IsActiveUser,)

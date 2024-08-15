@@ -4,12 +4,10 @@ NULLABLE = {"blank": True, "null": True}
 
 
 class Supplier(models.Model):
+    """
+    Модель поставщика
+    """
     name = models.CharField(max_length=100, verbose_name="название")
-    # email = models.EmailField(verbose_name="email")
-    # country = models.CharField(max_length=100, verbose_name="страна", **NULLABLE)
-    # city = models.CharField(max_length=100, verbose_name="город", **NULLABLE)
-    # street = models.CharField(max_length=100, verbose_name="улица", **NULLABLE)
-    # house = models.CharField(max_length=100, verbose_name="номер дома", **NULLABLE)
     parent_supplier = models.ForeignKey(
         "self", on_delete=models.CASCADE, verbose_name="поставщик", **NULLABLE
     )
@@ -44,6 +42,9 @@ class Supplier(models.Model):
 
 
 class Contact(models.Model):
+    """
+    Модель контактов поставщика
+    """
     supplier = models.ForeignKey(
         Supplier, on_delete=models.CASCADE, verbose_name="поставщик"
     )

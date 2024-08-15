@@ -6,6 +6,9 @@ NULLABLE = {"blank": True, "null": True}
 
 
 class Product(models.Model):
+    """
+    Модель продукта
+    """
     name = models.CharField(max_length=100, verbose_name="название")
     version = models.CharField(max_length=100, verbose_name="модель", **NULLABLE)
     release_date = models.DateField(verbose_name="дата релиза продукта", **NULLABLE)
