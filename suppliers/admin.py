@@ -12,8 +12,9 @@ def reset_debts(modeladmin, request, queryset):
 @admin.register(Supplier)
 class SupplierAdmin(admin.ModelAdmin):
     """Отображение поставщиков в админке"""
-    list_display = ('id', 'name', 'to_parent_supplier', 'debts', 'city')
-    list_filter = ('contact__city',)
+
+    list_display = ("id", "name", "to_parent_supplier", "debts", "city")
+    list_filter = ("contact__city",)
     actions = [reset_debts]
 
     @staticmethod
@@ -23,7 +24,7 @@ class SupplierAdmin(admin.ModelAdmin):
             return format_html(
                 '<a href="/admin/suppliers/{id}/">{name}</a>',
                 id=obj.parent_supplier.pk,
-                name=obj.parent_supplier.name
+                name=obj.parent_supplier.name,
             )
 
     @staticmethod
@@ -36,4 +37,9 @@ class SupplierAdmin(admin.ModelAdmin):
 @admin.register(Contact)
 class SupplierAdmin(admin.ModelAdmin):
     """Отображение поставщиков в админке"""
-    list_display = ("id", 'email', 'country',)
+
+    list_display = (
+        "id",
+        "email",
+        "country",
+    )

@@ -6,7 +6,7 @@ from suppliers.views import SupplierViewSet, ContactViewSet
 app_name = SuppliersConfig.name
 
 router = SimpleRouter()
-router.register('', SupplierViewSet)
+router.register("", SupplierViewSet)
 
 urlpatterns = []
 

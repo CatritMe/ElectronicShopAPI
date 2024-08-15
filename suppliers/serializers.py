@@ -37,7 +37,7 @@ class SupplierSerializer(ModelSerializer):
 
     class Meta:
         model = Supplier
-        fields = '__all__'
+        fields = "__all__"
 
 
 class ContactSerializer(ModelSerializer):
@@ -47,12 +47,14 @@ class ContactSerializer(ModelSerializer):
 
 
 class SupplierCreateSerializer(ModelSerializer):
-    supplier = serializers.SlugRelatedField(required=False, queryset=Supplier.objects.all(), slug_field="name")
+    supplier = serializers.SlugRelatedField(
+        required=False, queryset=Supplier.objects.all(), slug_field="name"
+    )
     contact = ContactSerializer(required=False)
 
     class Meta:
         model = Supplier
-        exclude = ('level',)
+        exclude = ("level",)
 
     def is_valid(self, *, raise_exception=False):
         self._contact = self.initial_data.pop("contact", {})
@@ -68,7 +70,7 @@ class SupplierCreateSerializer(ModelSerializer):
             country=self._contact.get("country", None),
             city=self._contact.get("city", None),
             street=self._contact.get("street", None),
-            house=self._contact.get("house", None)
-            )
+            house=self._contact.get("house", None),
+        )
         contact.save()
         return supplier

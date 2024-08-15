@@ -14,17 +14,26 @@ class Supplier(models.Model):
         "self", on_delete=models.CASCADE, verbose_name="поставщик", **NULLABLE
     )
     debts = models.DecimalField(
-        max_digits=20, decimal_places=2,
-        default=None, verbose_name="задолженность перед поставщиком", **NULLABLE
+        max_digits=20,
+        decimal_places=2,
+        default=None,
+        verbose_name="задолженность перед поставщиком",
+        **NULLABLE
     )
     create_time = models.DateTimeField(auto_now_add=True, verbose_name="время создания")
 
-    FACTORY = 'завод'
-    RETAIL = 'розничная сеть'
-    SHOP = 'индивидуальный предприниматель'
-    types = [(FACTORY, 'завод'), (RETAIL, 'розничная сеть'), (SHOP, 'индивидуальный предприниматель'), ]
-    type = models.CharField(max_length=30, choices=types, default=SHOP, verbose_name='тип предприятия')
-    level = models.SmallIntegerField(verbose_name='уровень', default=0)
+    FACTORY = "завод"
+    RETAIL = "розничная сеть"
+    SHOP = "индивидуальный предприниматель"
+    types = [
+        (FACTORY, "завод"),
+        (RETAIL, "розничная сеть"),
+        (SHOP, "индивидуальный предприниматель"),
+    ]
+    type = models.CharField(
+        max_length=30, choices=types, default=SHOP, verbose_name="тип предприятия"
+    )
+    level = models.SmallIntegerField(verbose_name="уровень", default=0)
 
     class Meta:
         verbose_name = "Поставщик"
@@ -35,7 +44,9 @@ class Supplier(models.Model):
 
 
 class Contact(models.Model):
-    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE, verbose_name="поставщик")
+    supplier = models.ForeignKey(
+        Supplier, on_delete=models.CASCADE, verbose_name="поставщик"
+    )
     email = models.EmailField(verbose_name="email")
     country = models.CharField(max_length=100, verbose_name="страна", **NULLABLE)
     city = models.CharField(max_length=100, verbose_name="город", **NULLABLE)

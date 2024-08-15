@@ -6,4 +6,9 @@ from users.models import User
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     """Отображение пользователей в админке"""
-    list_display = ('id', 'email', 'is_active',)
+
+    list_display = (
+        "id",
+        "email",
+        "is_active",
+    )
