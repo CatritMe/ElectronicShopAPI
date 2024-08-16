@@ -31,15 +31,11 @@
 3. Заполните файл `.env.example` и переименуйте его в `.env`.
 4. Запустите проект командой `python manage.py runserver`.
 
-## Запуск через docker
-Создаем контейнер:
-
-docker build -t my-python-app .
-
-Запускаем:
-
-docker run my-python-app
 
 ## Запуск через docker compose
 Сборка и запуск контейнера в фоновом режиме:
 docker-compose up -d --build
+
+## Документрация
+Оформлена документация drf-yasg, ее можно просмотреть после запуска проекта:
+http://localhost:8000/swagger или http://localhost:8000/redoc
